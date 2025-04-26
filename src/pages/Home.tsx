@@ -19,25 +19,25 @@ const Content = styled.div`
   padding: 2rem 0 2rem 4rem;
 `;
 
-const Title = styled(motion.h1)`
+const Title = styled.h1`
   font-size: 4rem;
   margin-bottom: 1rem;
-  color: ${props => props.theme.colors.text};
-  background: linear-gradient(45deg, ${props => props.theme.colors.primary}, ${props => props.theme.colors.accent});
+  color: #ffffff;
+  background: linear-gradient(45deg, #ffffff, #e0e0e0);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 `;
 
-const Subtitle = styled(motion.p)`
+const Subtitle = styled.p`
   font-size: 1.5rem;
-  color: ${props => props.theme.colors.textSecondary};
+  color: #b0b0b0;
   margin-bottom: 2rem;
 `;
 
-const Button = styled(motion.button)`
+const Button = styled.button`
   padding: 1rem 2rem;
-  background: ${props => props.theme.colors.primary};
-  color: ${props => props.theme.colors.text};
+  background: #ffffff;
+  color: #000000;
   border-radius: 0.5rem;
   font-size: 1.1rem;
   font-weight: 500;
@@ -46,9 +46,9 @@ const Button = styled(motion.button)`
   overflow: hidden;
 
   &:hover {
-    background: ${props => props.theme.colors.secondary};
+    background: #e0e0e0;
     transform: translateY(-2px);
-    box-shadow: 0 4px 20px rgba(37, 99, 235, 0.3);
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
   }
 
   &:active {
@@ -62,7 +62,6 @@ const CanvasContainer = styled.div`
   right: 0;
   width: 50%;
   height: 100%;
-  opacity: 0.8;
 `;
 
 const AnimatedSphere: React.FC = () => {
@@ -71,39 +70,49 @@ const AnimatedSphere: React.FC = () => {
       <ambientLight intensity={0.5} />
       <pointLight position={[10, 10, 10]} />
       <group>
-        {/* Outer sphere */}
+        {/* Main body - Joy (Yellow) */}
         <Sphere args={[1, 64, 64]}>
           <meshStandardMaterial
-            color="#2563eb"
-            metalness={0.7}
-            roughness={0.2}
-            wireframe
-            transparent
-            opacity={0.8}
-          />
-        </Sphere>
-        {/* Inner sphere */}
-        <Sphere args={[0.7, 32, 32]}>
-          <meshStandardMaterial
-            color="#3b82f6"
-            metalness={0.5}
-            roughness={0.3}
-            transparent
-            opacity={0.6}
-          />
-        </Sphere>
-        {/* Core sphere */}
-        <Sphere args={[0.4, 16, 16]}>
-          <meshStandardMaterial
-            color="#60a5fa"
+            color="#FFD700"
             metalness={0.3}
             roughness={0.4}
             transparent
-            opacity={0.8}
+            opacity={0.9}
           />
         </Sphere>
-        {/* Floating particles */}
-        {[...Array(20)].map((_, i) => (
+        
+        {/* Eyes */}
+        <group position={[0.3, 0.2, 0.8]}>
+          <Sphere args={[0.15, 32, 32]}>
+            <meshStandardMaterial color="#000000" />
+          </Sphere>
+        </group>
+        <group position={[-0.3, 0.2, 0.8]}>
+          <Sphere args={[0.15, 32, 32]}>
+            <meshStandardMaterial color="#000000" />
+          </Sphere>
+        </group>
+
+        {/* Smile */}
+        <group position={[0, -0.2, 0.8]}>
+          <Sphere args={[0.2, 32, 32]}>
+            <meshStandardMaterial color="#000000" />
+          </Sphere>
+        </group>
+
+        {/* Hair/Head details */}
+        <group position={[0, 0.8, 0]}>
+          <Sphere args={[0.3, 32, 32]}>
+            <meshStandardMaterial
+              color="#FFD700"
+              metalness={0.3}
+              roughness={0.4}
+            />
+          </Sphere>
+        </group>
+
+        {/* Floating emotions */}
+        {[...Array(10)].map((_, i) => (
           <mesh
             key={i}
             position={[
@@ -112,9 +121,9 @@ const AnimatedSphere: React.FC = () => {
               Math.sin(i * 0.5) * 2,
             ]}
           >
-            <sphereGeometry args={[0.02, 8, 8]} />
+            <sphereGeometry args={[0.1, 16, 16]} />
             <meshStandardMaterial
-              color="#93c5fd"
+              color={['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF'][i % 5]}
               transparent
               opacity={0.6}
             />
@@ -124,7 +133,7 @@ const AnimatedSphere: React.FC = () => {
       <OrbitControls 
         enableZoom={false} 
         autoRotate 
-        autoRotateSpeed={1.5}
+        autoRotateSpeed={1}
         enablePan={false}
         minPolarAngle={Math.PI / 3}
         maxPolarAngle={Math.PI / 2}
@@ -141,51 +150,41 @@ const Home: React.FC = () => {
       y: 0,
       transition: {
         duration: 0.8,
-        ease: "easeOut",
-        staggerChildren: 0.1
+        ease: "easeOut"
       }
     }
-  };
-
-  const letterVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
   };
 
   return (
     <HeroSection>
       <Content>
-        <Title
+        <motion.div
           variants={titleVariants}
           initial="hidden"
           animate="visible"
         >
-          {"Hi, I'm Saara Kaizer".split("").map((char, index) => (
-            <motion.span
-              key={index}
-              variants={letterVariants}
-              style={{ display: 'inline-block' }}
-            >
-              {char === " " ? "\u00A0" : char}
-            </motion.span>
-          ))}
-        </Title>
-        <Subtitle
+          <Title>
+            Hi, I'm <motion.span style={{ display: 'inline-block' }}>Saara Kaizer</motion.span>
+          </Title>
+        </motion.div>
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
         >
-          Full Stack Developer specializing in modern web technologies
-        </Subtitle>
-        <Button
+          <Subtitle>
+            Full Stack Developer specializing in modern web technologies
+          </Subtitle>
+        </motion.div>
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          View My Work
-        </Button>
+          <Button>View My Work</Button>
+        </motion.div>
       </Content>
       <CanvasContainer>
         <AnimatedSphere />

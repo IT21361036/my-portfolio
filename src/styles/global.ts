@@ -15,8 +15,8 @@ export const globalStyles = css`
 
   body {
     font-family: 'Inter', sans-serif;
-    background-color: #0f172a;
-    color: #f8fafc;
+    background-color: #000000;
+    color: #ffffff;
     line-height: 1.6;
   }
 

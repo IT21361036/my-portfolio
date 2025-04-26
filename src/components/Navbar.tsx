@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import * as React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const Nav = styled.nav`
+const Nav = styled(motion.nav)`
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 100;
   padding: 1rem 2rem;
-  background: rgba(15, 23, 42, 0.8);
+  background: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 `;
@@ -26,7 +26,7 @@ const NavContainer = styled.div`
 const Logo = styled(Link)`
   font-size: 1.5rem;
   font-weight: 700;
-  color: #f8fafc;
+  color: #ffffff;
   text-decoration: none;
   position: relative;
   
@@ -37,7 +37,7 @@ const Logo = styled(Link)`
     height: 2px;
     bottom: -4px;
     left: 0;
-    background: #2563eb;
+    background: #ffffff;
     transform: scaleX(0);
     transform-origin: right;
     transition: transform 0.3s ease;
@@ -60,7 +60,7 @@ const NavLinks = styled.div`
 `;
 
 const NavLink = styled(motion(Link))`
-  color: #94a3b8;
+  color: #b0b0b0;
   text-decoration: none;
   font-weight: 500;
   position: relative;
@@ -73,14 +73,14 @@ const NavLink = styled(motion(Link))`
     height: 2px;
     bottom: 0;
     left: 0;
-    background: #2563eb;
+    background: #ffffff;
     transform: scaleX(0);
     transform-origin: right;
     transition: transform 0.3s ease;
   }
   
   &:hover {
-    color: #f8fafc;
+    color: #ffffff;
   }
   
   &:hover::after {
@@ -93,7 +93,7 @@ const MobileMenuButton = styled(motion.button)`
   display: none;
   background: none;
   border: none;
-  color: #f8fafc;
+  color: #ffffff;
   font-size: 1.5rem;
   cursor: pointer;
   padding: 0.5rem;
@@ -110,7 +110,7 @@ const MobileMenu = styled(motion.div)`
   right: 0;
   bottom: 0;
   width: 100%;
-  background: rgba(15, 23, 42, 0.95);
+  background: rgba(0, 0, 0, 0.95);
   backdrop-filter: blur(10px);
   display: flex;
   flex-direction: column;
@@ -121,14 +121,14 @@ const MobileMenu = styled(motion.div)`
 `;
 
 const MobileNavLink = styled(motion(Link))`
-  color: #f8fafc;
+  color: #ffffff;
   text-decoration: none;
   font-size: 1.5rem;
   font-weight: 500;
 `;
 
 const Navbar: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = React.useState(false);
   const location = useLocation();
 
   const toggleMenu = () => setIsOpen(!isOpen);
@@ -149,7 +149,6 @@ const Navbar: React.FC = () => {
 
   return (
     <Nav
-      as={motion.nav}
       initial="hidden"
       animate="visible"
       variants={navVariants}
@@ -162,7 +161,7 @@ const Navbar: React.FC = () => {
             to="/"
             variants={linkVariants}
             whileHover="hover"
-            style={{ color: location.pathname === '/' ? '#2563eb' : undefined }}
+            style={{ color: location.pathname === '/' ? '#ffffff' : undefined }}
           >
             Home
           </NavLink>
@@ -170,7 +169,7 @@ const Navbar: React.FC = () => {
             to="/about"
             variants={linkVariants}
             whileHover="hover"
-            style={{ color: location.pathname === '/about' ? '#2563eb' : undefined }}
+            style={{ color: location.pathname === '/about' ? '#ffffff' : undefined }}
           >
             About
           </NavLink>
@@ -178,7 +177,7 @@ const Navbar: React.FC = () => {
             to="/projects"
             variants={linkVariants}
             whileHover="hover"
-            style={{ color: location.pathname === '/projects' ? '#2563eb' : undefined }}
+            style={{ color: location.pathname === '/projects' ? '#ffffff' : undefined }}
           >
             Projects
           </NavLink>
@@ -186,7 +185,7 @@ const Navbar: React.FC = () => {
             to="/contact"
             variants={linkVariants}
             whileHover="hover"
-            style={{ color: location.pathname === '/contact' ? '#2563eb' : undefined }}
+            style={{ color: location.pathname === '/contact' ? '#ffffff' : undefined }}
           >
             Contact
           </NavLink>
@@ -205,37 +204,41 @@ const Navbar: React.FC = () => {
             animate="open"
             exit="closed"
             variants={mobileMenuVariants}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            transition={{ duration: 0.3 }}
           >
             <MobileNavLink
               to="/"
               onClick={toggleMenu}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
             >
               Home
             </MobileNavLink>
             <MobileNavLink
               to="/about"
               onClick={toggleMenu}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
             >
               About
             </MobileNavLink>
             <MobileNavLink
               to="/projects"
               onClick={toggleMenu}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
             >
               Projects
             </MobileNavLink>
             <MobileNavLink
               to="/contact"
               onClick={toggleMenu}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
             >
               Contact
             </MobileNavLink>

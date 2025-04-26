@@ -5,12 +5,13 @@ import { motion } from 'framer-motion';
 const ProjectsSection = styled.section`
   min-height: 100vh;
   padding: 6rem 0;
+  background-color: #000000;
 `;
 
 const Title = styled(motion.h2)`
   font-size: 2.5rem;
   margin-bottom: 4rem;
-  color: ${props => props.theme.colors.text};
+  color: #ffffff;
   text-align: center;
 `;
 
@@ -22,10 +23,10 @@ const ProjectsGrid = styled.div`
 `;
 
 const ProjectCard = styled(motion.div)`
-  background: ${props => props.theme.colors.surface};
+  background: #1a1a1a;
   border-radius: 1rem;
   overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
   transition: transform 0.3s ease;
 
   &:hover {
@@ -36,7 +37,7 @@ const ProjectCard = styled(motion.div)`
 const ProjectImage = styled.div`
   width: 100%;
   height: 200px;
-  background: ${props => props.theme.colors.primary};
+  background: #ffffff;
   position: relative;
   overflow: hidden;
 
@@ -47,7 +48,7 @@ const ProjectImage = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(45deg, rgba(37, 99, 235, 0.8), rgba(30, 64, 175, 0.8));
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.8), rgba(224, 224, 224, 0.8));
     opacity: 0;
     transition: opacity 0.3s ease;
   }
@@ -63,12 +64,12 @@ const ProjectContent = styled.div`
 
 const ProjectTitle = styled.h3`
   font-size: 1.5rem;
-  color: ${props => props.theme.colors.text};
+  color: #ffffff;
   margin-bottom: 1rem;
 `;
 
 const ProjectDescription = styled.p`
-  color: ${props => props.theme.colors.textSecondary};
+  color: #b0b0b0;
   margin-bottom: 1.5rem;
   line-height: 1.6;
 `;
@@ -81,8 +82,8 @@ const TechStack = styled.div`
 `;
 
 const TechTag = styled.span`
-  background: ${props => props.theme.colors.primary};
-  color: ${props => props.theme.colors.text};
+  background: #ffffff;
+  color: #000000;
   padding: 0.25rem 0.75rem;
   border-radius: 1rem;
   font-size: 0.875rem;
@@ -94,13 +95,13 @@ const ProjectLinks = styled.div`
 `;
 
 const Link = styled.a`
-  color: ${props => props.theme.colors.accent};
+  color: #ffffff;
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s ease;
 
   &:hover {
-    color: ${props => props.theme.colors.primary};
+    color: #e0e0e0;
   }
 `;
 
@@ -115,46 +116,44 @@ interface Project {
 const Projects: React.FC = () => {
   const projects: Project[] = [
     {
-      title: 'E-Commerce Platform',
-      description: 'A full-stack e-commerce platform built with React, Node.js, and MongoDB. Features include user authentication, product management, shopping cart, and payment integration.',
-      tech: ['React', 'Node.js', 'MongoDB', 'Express', 'Stripe'],
-      demo: 'https://demo.example.com',
-      github: 'https://github.com/example/ecommerce',
+      title: "E-commerce Platform",
+      description: "A full-stack e-commerce platform with user authentication, product management, and payment integration.",
+      tech: ["React", "Node.js", "MongoDB", "Stripe"],
+      demo: "https://demo.com",
+      github: "https://github.com"
     },
     {
-      title: 'Real-time Chat App',
-      description: 'A modern chat application with real-time messaging capabilities using WebSocket. Includes features like user presence, message history, and file sharing.',
-      tech: ['React', 'Socket.io', 'Firebase', 'Tailwind CSS'],
-      demo: 'https://demo.example.com',
-      github: 'https://github.com/example/chat-app',
+      title: "Task Management App",
+      description: "A collaborative task management application with real-time updates and team collaboration features.",
+      tech: ["React", "Firebase", "Redux", "Material-UI"],
+      demo: "https://demo.com",
+      github: "https://github.com"
     },
     {
-      title: 'Portfolio Website',
-      description: 'A responsive portfolio website built with React and Three.js. Features smooth animations, 3D graphics, and a modern design.',
-      tech: ['React', 'Three.js', 'Framer Motion', 'TypeScript'],
-      demo: 'https://demo.example.com',
-      github: 'https://github.com/example/portfolio',
-    },
+      title: "Weather Dashboard",
+      description: "A weather application that provides real-time weather data and forecasts for multiple locations.",
+      tech: ["React", "OpenWeather API", "Chart.js", "Tailwind CSS"],
+      demo: "https://demo.com",
+      github: "https://github.com"
+    }
   ];
 
   return (
     <ProjectsSection>
       <Title
         initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        viewport={{ once: true }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
       >
         My Projects
       </Title>
       <ProjectsGrid>
         {projects.map((project, index) => (
           <ProjectCard
-            key={project.title}
+            key={index}
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 * index }}
-            viewport={{ once: true }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: index * 0.2 }}
             whileHover={{ scale: 1.02 }}
           >
             <ProjectImage />
@@ -162,8 +161,8 @@ const Projects: React.FC = () => {
               <ProjectTitle>{project.title}</ProjectTitle>
               <ProjectDescription>{project.description}</ProjectDescription>
               <TechStack>
-                {project.tech.map((tech) => (
-                  <TechTag key={tech}>{tech}</TechTag>
+                {project.tech.map((tech, techIndex) => (
+                  <TechTag key={techIndex}>{tech}</TechTag>
                 ))}
               </TechStack>
               <ProjectLinks>

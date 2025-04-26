@@ -1,15 +1,15 @@
 import '@emotion/react';
 
 declare module '@emotion/react' {
-  export interface Theme {
+  interface Theme {
     colors: {
       primary: string;
       secondary: string;
-      background: string;
-      surface: string;
       text: string;
       textSecondary: string;
       accent: string;
+      background: string;
+      surface: string;
     };
     typography: {
       fontFamily: string;
