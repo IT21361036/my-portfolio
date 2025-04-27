@@ -1,8 +1,9 @@
-import React from 'react';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Sphere } from '@react-three/drei';
+import React, { useRef, useState, useEffect } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { OrbitControls } from '@react-three/drei';
 import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
+import * as THREE from 'three';
 
 const HeroSection = styled.section`
   height: 100vh;
@@ -59,81 +60,97 @@ const Button = styled.button`
 const CanvasContainer = styled.div`
   position: absolute;
   top: 0;
-  right: 0;
-  width: 50%;
+  left: 0;
+  width: 100%;
   height: 100%;
 `;
 
-const AnimatedSphere: React.FC = () => {
+const InteractiveParticles: React.FC = () => {
+  const particles = useRef<THREE.Points>(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (event: MouseEvent) => {
+      setMousePosition({
+        x: (event.clientX / window.innerWidth) * 2 - 1,
+        y: -(event.clientY / window.innerHeight) * 2 + 1
+      });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  useFrame((state) => {
+    if (particles.current) {
+      const time = state.clock.getElapsedTime();
+      particles.current.rotation.x = time * 0.03;
+      particles.current.rotation.y = time * 0.06;
+
+      // Update particle positions based on mouse position
+      const positions = particles.current.geometry.attributes.position.array;
+      for (let i = 0; i < positions.length; i += 3) {
+        positions[i] += Math.sin(time + positions[i]) * 0.003;
+        positions[i + 1] += Math.cos(time + positions[i + 1]) * 0.003;
+        positions[i + 2] += Math.sin(time + positions[i + 2]) * 0.003;
+      }
+      particles.current.geometry.attributes.position.needsUpdate = true;
+    }
+  });
+
+  const particleCount = 5000;
+  const positions = new Float32Array(particleCount * 3);
+  const colors = new Float32Array(particleCount * 3);
+
+  for (let i = 0; i < particleCount; i++) {
+    positions[i * 3] = (Math.random() - 0.5) * 20;
+    positions[i * 3 + 1] = (Math.random() - 0.5) * 20;
+    positions[i * 3 + 2] = (Math.random() - 0.5) * 20;
+
+    colors[i * 3] = Math.random() * 0.5 + 0.5; // R
+    colors[i * 3 + 1] = Math.random() * 0.5 + 0.5; // G
+    colors[i * 3 + 2] = Math.random() * 0.5 + 0.5; // B
+  }
+
   return (
-    <Canvas camera={{ position: [0, 0, 5] }}>
+    <points ref={particles}>
+      <bufferGeometry>
+        <bufferAttribute
+          attach="attributes-position"
+          count={particleCount}
+          array={positions}
+          itemSize={3}
+          args={[positions, 3]}
+        />
+        <bufferAttribute
+          attach="attributes-color"
+          count={particleCount}
+          array={colors}
+          itemSize={3}
+          args={[colors, 3]}
+        />
+      </bufferGeometry>
+      <pointsMaterial
+        size={0.05}
+        vertexColors
+        transparent
+        opacity={0.8}
+        sizeAttenuation
+      />
+    </points>
+  );
+};
+
+const AnimatedParticles: React.FC = () => {
+  return (
+    <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
       <ambientLight intensity={0.5} />
-      <pointLight position={[10, 10, 10]} />
-      <group>
-        {/* Main body - Joy (Yellow) */}
-        <Sphere args={[1, 64, 64]}>
-          <meshStandardMaterial
-            color="#FFD700"
-            metalness={0.3}
-            roughness={0.4}
-            transparent
-            opacity={0.9}
-          />
-        </Sphere>
-        
-        {/* Eyes */}
-        <group position={[0.3, 0.2, 0.8]}>
-          <Sphere args={[0.15, 32, 32]}>
-            <meshStandardMaterial color="#000000" />
-          </Sphere>
-        </group>
-        <group position={[-0.3, 0.2, 0.8]}>
-          <Sphere args={[0.15, 32, 32]}>
-            <meshStandardMaterial color="#000000" />
-          </Sphere>
-        </group>
-
-        {/* Smile */}
-        <group position={[0, -0.2, 0.8]}>
-          <Sphere args={[0.2, 32, 32]}>
-            <meshStandardMaterial color="#000000" />
-          </Sphere>
-        </group>
-
-        {/* Hair/Head details */}
-        <group position={[0, 0.8, 0]}>
-          <Sphere args={[0.3, 32, 32]}>
-            <meshStandardMaterial
-              color="#FFD700"
-              metalness={0.3}
-              roughness={0.4}
-            />
-          </Sphere>
-        </group>
-
-        {/* Floating emotions */}
-        {[...Array(10)].map((_, i) => (
-          <mesh
-            key={i}
-            position={[
-              Math.sin(i) * 2,
-              Math.cos(i) * 2,
-              Math.sin(i * 0.5) * 2,
-            ]}
-          >
-            <sphereGeometry args={[0.1, 16, 16]} />
-            <meshStandardMaterial
-              color={['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF'][i % 5]}
-              transparent
-              opacity={0.6}
-            />
-          </mesh>
-        ))}
-      </group>
-      <OrbitControls 
-        enableZoom={false} 
-        autoRotate 
-        autoRotateSpeed={1}
+      <pointLight position={[10, 10, 10]} intensity={1} />
+      <InteractiveParticles />
+      <OrbitControls
+        enableZoom={false}
+        autoRotate
+        autoRotateSpeed={0.5}
         enablePan={false}
         minPolarAngle={Math.PI / 3}
         maxPolarAngle={Math.PI / 2}
@@ -187,7 +204,7 @@ const Home: React.FC = () => {
         </motion.div>
       </Content>
       <CanvasContainer>
-        <AnimatedSphere />
+        <AnimatedParticles />
       </CanvasContainer>
     </HeroSection>
   );

@@ -28,6 +28,8 @@ const ProjectCard = styled(motion.div)`
   overflow: hidden;
   box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
   transition: transform 0.3s ease;
+  max-width: 400px;
+  margin: 0 auto;
 
   &:hover {
     transform: translateY(-5px);
@@ -36,57 +38,42 @@ const ProjectCard = styled(motion.div)`
 
 const ProjectImage = styled.div`
   width: 100%;
-  height: 200px;
+  height: 150px;
   background: #ffffff;
   position: relative;
   overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(45deg, rgba(255, 255, 255, 0.8), rgba(224, 224, 224, 0.8));
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  &:hover::before {
-    opacity: 1;
-  }
 `;
 
 const ProjectContent = styled.div`
-  padding: 1.5rem;
+  padding: 1rem;
 `;
 
 const ProjectTitle = styled.h3`
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: #ffffff;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 `;
 
 const ProjectDescription = styled.p`
   color: #b0b0b0;
-  margin-bottom: 1.5rem;
-  line-height: 1.6;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+  font-size: 0.9rem;
 `;
 
 const TechStack = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 `;
 
 const TechTag = styled.span`
   background: #ffffff;
   color: #000000;
-  padding: 0.25rem 0.75rem;
+  padding: 0.2rem 0.6rem;
   border-radius: 1rem;
-  font-size: 0.875rem;
+  font-size: 0.8rem;
 `;
 
 const ProjectLinks = styled.div`
@@ -116,25 +103,32 @@ interface Project {
 const Projects: React.FC = () => {
   const projects: Project[] = [
     {
-      title: "E-commerce Platform",
-      description: "A full-stack e-commerce platform with user authentication, product management, and payment integration.",
-      tech: ["React", "Node.js", "MongoDB", "Stripe"],
-      demo: "https://demo.com",
-      github: "https://github.com"
+      title: "Expertise-Based Author Suggestion System",
+      description: "ML-powered recommendation system using sentence transformers for semantic analysis. Achieved 91.24% accuracy in suggesting collaborators based on expertise matching. Integrated with MERN stack for real-time recommendations.",
+      tech: ["ML", "Python", "MERN", "NLP", "Transformers"],
+      demo: "#",
+      github: "https://github.com/Krithiga-Balakrishnan/RP-24-25J-146/tree/develop-contributor-selection"
     },
     {
-      title: "Task Management App",
-      description: "A collaborative task management application with real-time updates and team collaboration features.",
-      tech: ["React", "Firebase", "Redux", "Material-UI"],
-      demo: "https://demo.com",
-      github: "https://github.com"
+      title: "SmartNotes Chatbot",
+      description: "LLM-powered chatbot using Mistral-7B-Instruct for answering CTSE lecture questions. Implemented TF-IDF vectorization and LangChain workflow orchestration in Jupyter Notebook environment.",
+      tech: ["LLM", "Python", "Mistral-7B", "LangChain", "TF-IDF"],
+      demo: "#",
+      github: "https://github.com/IT21361036/CTSE_Assignment-2-LLM-ChatBot"
     },
     {
-      title: "Weather Dashboard",
-      description: "A weather application that provides real-time weather data and forecasts for multiple locations.",
-      tech: ["React", "OpenWeather API", "Chart.js", "Tailwind CSS"],
-      demo: "https://demo.com",
-      github: "https://github.com"
+      title: "Microservices-Based Online Education Platform",
+      description: "Scalable education platform with microservices architecture for course management, authentication, and real-time communication. Deployed on Azure with Kubernetes orchestration and React frontend.",
+      tech: ["Java", "Spring Boot", "Kubernetes", "Azure", "React", "Docker"],
+      demo: "#",
+      github: "https://github.com/IT21361036/CTSE_Assignment-Y4S2"
+    },
+    {
+      title: "E-Commerce Platform",
+      description: "Advanced e-commerce platform with React-based management system and mobile app. Features real-time product, order, and inventory management with .NET backend and NoSQL database. Includes vendor ratings and order tracking.",
+      tech: ["React", ".NET", "C#", "NoSQL", "Mobile App"],
+      demo: "#",
+      github: "https://github.com/IT21361036/ecommerce-ead-frontend"
     }
   ];
 
@@ -166,9 +160,6 @@ const Projects: React.FC = () => {
                 ))}
               </TechStack>
               <ProjectLinks>
-                <Link href={project.demo} target="_blank" rel="noopener noreferrer">
-                  Live Demo
-                </Link>
                 <Link href={project.github} target="_blank" rel="noopener noreferrer">
                   GitHub
                 </Link>

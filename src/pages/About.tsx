@@ -1,20 +1,30 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
+import { Theme } from '@emotion/react';
+
+interface CustomTheme extends Theme {
+  colors: {
+    text: string;
+    textSecondary: string;
+    surface: string;
+  };
+}
 
 const AboutSection = styled.section`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 4rem;
+  gap: 2rem;
+  padding: 2rem;
 `;
 
 const Container = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: center;
+  gap: 2rem;
+  align-items: start;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
@@ -23,34 +33,43 @@ const Container = styled.div`
 
 const Bio = styled.div`
   h2 {
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
+    font-size: 2rem;
+    margin-bottom: 1rem;
     color: ${props => props.theme.colors.text};
   }
 
   p {
-    font-size: 1.1rem;
-    line-height: 1.8;
+    font-size: 1rem;
+    line-height: 1.6;
     color: ${props => props.theme.colors.textSecondary};
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
   }
 `;
 
 const SkillsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const SkillCard = styled(motion.div)`
   background: ${props => props.theme.colors.surface};
-  padding: 1.5rem;
-  border-radius: 1rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
   h3 {
     color: ${props => props.theme.colors.text};
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
   }
 
   ul {
@@ -60,16 +79,19 @@ const SkillCard = styled(motion.div)`
 
   li {
     color: ${props => props.theme.colors.textSecondary};
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
+    font-size: 0.9rem;
   }
 `;
 
 const About: React.FC = () => {
   const skills = {
     frontend: ['React', 'TypeScript', 'Next.js', 'Three.js', 'Framer Motion'],
-    backend: ['Node.js', 'Python', 'Java', 'SQL', 'REST APIs'],
-    tools: ['Git', 'Docker', 'AWS', 'VS Code', 'Figma'],
-    other: ['Agile', 'CI/CD', 'Testing', 'Performance Optimization', 'Security'],
+    backend: ['Node.js', 'Python', 'Java', '.NET/C#', 'SQL', 'REST APIs'],
+    'ai-ml': ['Machine Learning', 'LLM', 'Computer Vision', 'TensorFlow', 'PyTorch', 'OpenCV', 'NLP'],
+    devops: ['Docker', 'Kubernetes', 'AWS', 'CI/CD', 'Terraform', 'Jenkins', 'GitHub Actions', 'Monitoring & Logging'],
+    tools: ['Git', 'VS Code', 'Figma'],
+    other: ['Agile', 'Testing', 'Performance Optimization', 'Security'],
   };
 
   return (
