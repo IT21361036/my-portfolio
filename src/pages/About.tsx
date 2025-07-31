@@ -13,6 +13,7 @@ interface CustomTheme extends Theme {
 
 const AboutSection = styled.section`
   min-height: 100vh;
+<<<<<<< HEAD
   padding: 2rem;
   background-color: #000000;
 `;
@@ -36,11 +37,29 @@ const MainContent = styled.div`
   @media (max-width: 1024px) {
     grid-template-columns: 1fr;
     gap: 2rem;
+=======
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem;
+`;
+
+const Container = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+>>>>>>> db64106a070ef3172f0c7d7b8625760a8552be41
   }
 `;
 
 const Bio = styled.div`
   h2 {
+<<<<<<< HEAD
     font-size: 2.5rem;
     margin-bottom: 1.5rem;
     color: #ffffff;
@@ -66,12 +85,37 @@ const SkillsGrid = styled.div`
   grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem;
 
+=======
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: ${props => props.theme.colors.text};
+  }
+
+  p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: ${props => props.theme.colors.textSecondary};
+    margin-bottom: 1rem;
+  }
+`;
+
+const SkillsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+>>>>>>> db64106a070ef3172f0c7d7b8625760a8552be41
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
 `;
 
 const SkillCard = styled(motion.div)`
+<<<<<<< HEAD
   background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
   border: 1px solid #333;
   padding: 1.5rem;
@@ -100,6 +144,17 @@ const SkillCard = styled(motion.div)`
     margin-bottom: 1rem;
     font-size: 1.2rem;
     font-weight: 600;
+=======
+  background: ${props => props.theme.colors.surface};
+  padding: 1rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  h3 {
+    color: ${props => props.theme.colors.text};
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+>>>>>>> db64106a070ef3172f0c7d7b8625760a8552be41
   }
 
   ul {
@@ -108,6 +163,7 @@ const SkillCard = styled(motion.div)`
   }
 
   li {
+<<<<<<< HEAD
     color: #b0b0b0;
     margin-bottom: 0.5rem;
     font-size: 0.95rem;
@@ -245,11 +301,17 @@ const EducationSection = styled.div`
   p {
     color: #b0b0b0;
     line-height: 1.6;
+=======
+    color: ${props => props.theme.colors.textSecondary};
+    margin-bottom: 0.25rem;
+    font-size: 0.9rem;
+>>>>>>> db64106a070ef3172f0c7d7b8625760a8552be41
   }
 `;
 
 const About: React.FC = () => {
   const skills = {
+<<<<<<< HEAD
     'Programming Languages': ['Python', 'C#', 'C++', 'Kotlin', 'Java', 'JavaScript'],
     'Web Development': ['.NET', 'PHP/Laravel', 'MERN Stack', 'HTML', 'CSS', 'Angular'],
     'AI & ML': ['Machine Learning', 'Computer Vision', 'OpenCV', 'LLM', 'NLP'],
@@ -382,11 +444,26 @@ const About: React.FC = () => {
         </MainContent>
 
         <SkillsSection>
+=======
+    frontend: ['React', 'TypeScript', 'Next.js', 'Three.js', 'Framer Motion'],
+    backend: ['Node.js', 'Python', 'Java', '.NET/C#', 'SQL', 'REST APIs'],
+    'ai-ml': ['Machine Learning', 'LLM', 'Computer Vision', 'TensorFlow', 'PyTorch', 'OpenCV', 'NLP'],
+    devops: ['Docker', 'Kubernetes', 'AWS', 'CI/CD', 'Terraform', 'Jenkins', 'GitHub Actions', 'Monitoring & Logging'],
+    tools: ['Git', 'VS Code', 'Figma'],
+    other: ['Agile', 'Testing', 'Performance Optimization', 'Security'],
+  };
+
+  return (
+    <AboutSection>
+      <Container>
+        <Bio>
+>>>>>>> db64106a070ef3172f0c7d7b8625760a8552be41
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
+<<<<<<< HEAD
             style={{ color: '#ffffff', fontSize: '2rem', marginBottom: '2rem', textAlign: 'center' }}
           >
             Technical Skills
@@ -421,17 +498,60 @@ const About: React.FC = () => {
           >
             Education
           </motion.h3>
+=======
+          >
+            About Me
+          </motion.h2>
+>>>>>>> db64106a070ef3172f0c7d7b8625760a8552be41
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
           >
+<<<<<<< HEAD
             <strong>BSc (Hons) in Information Technology</strong> - Software Engineering<br/>
             Sri Lanka Institute of Information Technology, Malabe, Sri Lanka<br/>
             Cumulative GPA: 3.4 | Year 4 Semester 2 GPA: 3.71
           </motion.p>
         </EducationSection>
+=======
+            I am a passionate software engineer with a strong foundation in both frontend and backend development. 
+            My journey in software development began with a curiosity for creating things that make a difference, 
+            and that drive continues to push me to learn and grow every day.
+          </motion.p>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            viewport={{ once: true }}
+          >
+            I specialize in building modern web applications with a focus on performance, 
+            user experience, and clean code practices. My approach combines technical expertise 
+            with creative problem-solving to deliver solutions that are both efficient and elegant.
+          </motion.p>
+        </Bio>
+
+        <SkillsGrid>
+          {Object.entries(skills).map(([category, items], index) => (
+            <SkillCard
+              key={category}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 * index }}
+              viewport={{ once: true }}
+              whileHover={{ scale: 1.02 }}
+            >
+              <h3>{category.charAt(0).toUpperCase() + category.slice(1)}</h3>
+              <ul>
+                {items.map((skill, i) => (
+                  <li key={i}>{skill}</li>
+                ))}
+              </ul>
+            </SkillCard>
+          ))}
+        </SkillsGrid>
+>>>>>>> db64106a070ef3172f0c7d7b8625760a8552be41
       </Container>
     </AboutSection>
   );
