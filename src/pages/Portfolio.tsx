@@ -840,8 +840,8 @@ const Portfolio: React.FC = () => {
     { label: 'Email', value: 'saara.kaizer@gmail.com', link: 'mailto:saara.kaizer@gmail.com' },
     { label: 'Phone', value: '+94 71 789 3019', link: 'tel:+94717893019' },
     { label: 'Location', value: 'Malabe, Sri Lanka' },
-    { label: 'LinkedIn', value: 'LinkedIn Profile', link: '#' },
-    { label: 'GitHub', value: 'GitHub Profile', link: '#' },
+     { label: 'LinkedIn', value: 'LinkedIn Profile', link: 'https://www.linkedin.com/in/saara-kaizer-7b638b216/' },
+    { label: 'GitHub', value: 'GitHub Profile', link: 'https://github.com/IT21361036' },
   ];
 
   const scrollToSection = (sectionId: string) => {
