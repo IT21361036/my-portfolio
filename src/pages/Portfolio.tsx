@@ -26,11 +26,37 @@ const Container = styled.div`
   width: 100%;
 `;
 
-// Enhanced Hero Section
-const HeroSection = styled(Section)`
+// Enhanced Section with Shade Overlay
+const SectionWithShade = styled(Section)`
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.1) 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+  
+  > * {
+    position: relative;
+    z-index: 2;
+  }
+`;
+
+// Enhanced Hero Section with Shade
+const HeroSection = styled(SectionWithShade)`
   position: relative;
   overflow: hidden;
   background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+  
+  &::before {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 212, 255, 0.1) 50%, rgba(0, 0, 0, 0.2) 100%);
+  }
 `;
 
 const HeroContent = styled.div`
@@ -107,9 +133,13 @@ const CanvasContainer = styled.div`
   height: 100%;
 `;
 
-// Enhanced About Section
-const AboutSection = styled(Section)`
+// Enhanced About Section with Shade
+const AboutSection = styled(SectionWithShade)`
   background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  
+  &::before {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 212, 255, 0.05) 50%, rgba(0, 0, 0, 0.1) 100%);
+  }
 `;
 
 const AboutGrid = styled.div`
@@ -236,9 +266,13 @@ const AchievementItem = styled(motion.li)`
   }
 `;
 
-// Enhanced Skills Section
-const SkillsSection = styled(Section)`
+// Enhanced Skills Section with Shade
+const SkillsSection = styled(SectionWithShade)`
   background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  
+  &::before {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 212, 255, 0.08) 50%, rgba(0, 0, 0, 0.15) 100%);
+  }
 `;
 
 const SkillsGrid = styled.div`
@@ -310,9 +344,13 @@ const SkillCard = styled(motion.div)`
   }
 `;
 
-// Enhanced Projects Section
-const ProjectsSection = styled(Section)`
+// Enhanced Projects Section with Shade
+const ProjectsSection = styled(SectionWithShade)`
   background: #000000;
+  
+  &::before {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 212, 255, 0.1) 50%, rgba(0, 0, 0, 0.2) 100%);
+  }
 `;
 
 const ProjectsGrid = styled.div`
@@ -432,9 +470,13 @@ const Link = styled.a`
   }
 `;
 
-// Enhanced Publications Section
-const PublicationsSection = styled(Section)`
+// Enhanced Publications Section with Shade
+const PublicationsSection = styled(SectionWithShade)`
   background: #000000;
+  
+  &::before {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 212, 255, 0.06) 50%, rgba(0, 0, 0, 0.1) 100%);
+  }
 `;
 
 const PublicationsGrid = styled.div`
@@ -513,9 +555,13 @@ const PublicationStatus = styled.span`
   box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
 `;
 
-// Enhanced Contact Section
-const ContactSection = styled(Section)`
+// Enhanced Contact Section with Shade
+const ContactSection = styled(SectionWithShade)`
   background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  
+  &::before {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 212, 255, 0.1) 50%, rgba(0, 0, 0, 0.2) 100%);
+  }
 `;
 
 const ContactContainer = styled.div`
@@ -555,6 +601,75 @@ const ContactItem = styled(motion.div)`
     &:hover {
       color: #ffffff;
     }
+  }
+`;
+
+// Add Navigation Header
+const NavigationHeader = styled.nav`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1rem 0;
+`;
+
+const NavContainer = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  padding: 0 2rem;
+
+  @media (max-width: 768px) {
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+`;
+
+// Enhanced Navigation with Active State
+const NavLink = styled(motion.a)`
+  color: #b0b0b0;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(0, 153, 204, 0.1) 100%);
+    border-radius: 2rem;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+
+  &:hover {
+    color: #00d4ff;
+    
+    &::before {
+      transform: scaleX(1);
+    }
+  }
+
+  &.active {
+    color: #00d4ff;
+    background: rgba(0, 212, 255, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
   }
 `;
 
@@ -729,10 +844,95 @@ const Portfolio: React.FC = () => {
     { label: 'GitHub', value: 'GitHub Profile', link: '#' },
   ];
 
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  // Add scroll spy functionality
+  const [activeSection, setActiveSection] = React.useState('hero');
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      const sections = ['hero', 'about', 'skills', 'projects', 'publications', 'contact'];
+      const scrollPosition = window.scrollY + 100;
+
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const { offsetTop, offsetHeight } = element;
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <PortfolioContainer>
+      {/* Navigation Header */}
+      <NavigationHeader>
+        <NavContainer>
+          <NavLink
+            onClick={() => scrollToSection('hero')}
+            className={activeSection === 'hero' ? 'active' : ''}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Home
+          </NavLink>
+          <NavLink
+            onClick={() => scrollToSection('about')}
+            className={activeSection === 'about' ? 'active' : ''}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            About Me
+          </NavLink>
+          <NavLink
+            onClick={() => scrollToSection('skills')}
+            className={activeSection === 'skills' ? 'active' : ''}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Skills
+          </NavLink>
+          <NavLink
+            onClick={() => scrollToSection('projects')}
+            className={activeSection === 'projects' ? 'active' : ''}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Projects
+          </NavLink>
+          <NavLink
+            onClick={() => scrollToSection('publications')}
+            className={activeSection === 'publications' ? 'active' : ''}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Publications
+          </NavLink>
+          <NavLink
+            onClick={() => scrollToSection('contact')}
+            className={activeSection === 'contact' ? 'active' : ''}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Contact
+          </NavLink>
+        </NavContainer>
+      </NavigationHeader>
+
       {/* Hero Section */}
-      <HeroSection>
+      <HeroSection id="hero">
         <CanvasContainer>
           <AnimatedParticles />
         </CanvasContainer>
@@ -875,7 +1075,7 @@ const Portfolio: React.FC = () => {
       </AboutSection>
 
       {/* Skills Section */}
-      <SkillsSection>
+      <SkillsSection id="skills">
         <Container>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -909,7 +1109,7 @@ const Portfolio: React.FC = () => {
       </SkillsSection>
 
       {/* Projects Section */}
-      <ProjectsSection>
+      <ProjectsSection id="projects">
         <Container>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -954,7 +1154,7 @@ const Portfolio: React.FC = () => {
       </ProjectsSection>
 
       {/* Publications Section */}
-      <PublicationsSection>
+      <PublicationsSection id="publications">
         <Container>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -995,7 +1195,7 @@ const Portfolio: React.FC = () => {
       </PublicationsSection>
 
       {/* Contact Section */}
-      <ContactSection>
+      <ContactSection id="contact">
         <Container>
           <ContactContainer>
             <motion.h2
